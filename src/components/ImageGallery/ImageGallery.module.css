@@ -1,0 +1,13 @@
+.imageGalleryList{
+display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+justify-content: center;
+gap: 20px;
+margin: 20px auto;
+}
+.imageGalleryItem{
+    width: calc((100%-60px)/4);
+    list-style-type: none;
+    object-fit: cover;
+}

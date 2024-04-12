@@ -1,0 +1,7 @@
+.errorMes{
+    margin: 0 auto;
+    display: flex;
+   justify-content: center;
+    font-size: 28px;
+    font-weight: 600;
+}
