@@ -1,7 +1,25 @@
 import toast from 'react-hot-toast';
 import css from './css/MoviesPage.module.css'
 import MovieList from '../components/MovieList/MovieList';
-const MoviesPage = ({loadSearchMovie, listSearchMovies}) => {
+import { fetchSearchMovie } from '../api/api'
+import { useState, useEffect } from 'react';
+
+const MoviesPage = () => {
+    const [listSearchMovies, setListSearchMovies] = useState([]);
+const loadSearchMovie = async (searchValue) => {
+        try {
+            const movies = await fetchSearchMovie(searchValue);
+            const listSearchMovies = movies.data.results;
+            setListSearchMovies(listSearchMovies);
+        } catch {
+            // setIsError(true)
+            console.log('error')
+        }
+        finally {
+            // setLoading(false);
+        }
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const form = e.target;

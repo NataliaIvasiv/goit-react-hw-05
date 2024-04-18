@@ -3,7 +3,7 @@ const BASE_URL = 'https://api.themoviedb.org/3';
 const end_point_trending = '/trending/movie/day';
 const end_point_search = '/search/movie?query=';
 const end_point_movieDetails = '/movie/';
-const end_point_movieCast = '/movie/{movie_id}/credits';
+const end_point_movieCast = `/credits`;
 const end_point_movieReviews = '/movie/{movie_id}/reviews';
 
 const options = {
@@ -29,8 +29,8 @@ export const fetchMovieDetails = async (movieId) => {
     return responce;
 }
 
-export const fetchMovieCast = async () => {
-    const responce = await axios.get(`${BASE_URL}${end_point_movieCast}`, options);
+export const fetchMovieCast = async (movieId) => {
+    const responce = await axios.get(`${BASE_URL}/movie/${movieId}/credits`, options);
     return responce;
 }
 
