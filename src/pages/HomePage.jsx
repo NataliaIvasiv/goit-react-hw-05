@@ -8,7 +8,8 @@ const HomePage = () => {
     const [trendMovies, setTrendMovies] = useState([]);
     const [loading, setLoading] = useState(false);
     const [isError, setIsError] = useState(false);
-    const loadTrendMovies = async () => {
+   
+    useEffect(() => { const loadTrendMovies = async () => {
         try {
             setLoading(true);
             const movies = await fetchTrendingMovies();
@@ -21,7 +22,8 @@ const HomePage = () => {
             setLoading(false);
         }
     }
-    useEffect(() => loadTrendMovies, []);
+loadTrendMovies()
+}, []);
     return (
         <>
         <MovieList trendList={trendMovies} />
