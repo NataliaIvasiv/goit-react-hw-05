@@ -2,30 +2,35 @@ import { useEffect, useState } from "react";
 import { useParams, useLocation, Link, Outlet } from "react-router-dom";
 import { fetchMovieDetails } from '../api/api';
 import css from './css/MovieDetailsPage.module.css';
+import  Loader  from "../components/Loader/Loader";
+import ErrorMessage from "../components/ErrorMessage/ErrorMessage";
+
 
 const MovieDetailsPage = () => {
     const [movieDetails, setMovieDetails] = useState({});
+    const [loading, setLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
     const { movieId } = useParams();
     const location = useLocation();
     const backLinkHref = location.state ?? "/";
     
-    const loadMovieById = async (movieId) => {
+
+    useEffect(() => {
+        const loadMovieById = async () => {
         try {
+            setLoading(true);
             const movies = await fetchMovieDetails(movieId);
             const details = movies.data;
             setMovieDetails(details);
         } catch(error) {
-            console.log(error);
+            setIsError(true);
         }
-    };
-
-    const loadFun = () => {
-        return loadMovieById(movieId);
-    };
-
-    useEffect(() => {
-        loadFun();
-    }, []);
+        finally {
+            setLoading(false);
+        }
+        };
+        loadMovieById()
+    }, [movieId]);
     
     const url = `https://image.tmdb.org/t/p/w400${movieDetails.poster_path}`;
     
@@ -45,7 +50,8 @@ const MovieDetailsPage = () => {
 
                     <p><Link to='cast'>Cast</Link></p>
                 <p><Link to='reviews'>Reviews</Link></p>
-                    
+                    {loading && <Loader />}
+            {isError && <ErrorMessage/>}
                 </div>
                 
                 <Outlet />
