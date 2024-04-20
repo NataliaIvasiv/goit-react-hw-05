@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams, useLocation, Link, Outlet } from "react-router-dom";
 import { fetchMovieDetails } from '../api/api';
 import css from './css/MovieDetailsPage.module.css';
@@ -12,7 +12,7 @@ const MovieDetailsPage = () => {
     const [isError, setIsError] = useState(false);
     const { movieId } = useParams();
     const location = useLocation();
-    const backLinkHref = location.state ?? "/";
+    const backLinkHref = useRef(location.state ?? "/");
     
 
     useEffect(() => {
@@ -36,7 +36,7 @@ const MovieDetailsPage = () => {
     
     return (
         <div className={css.detailsContainer}>
-            <Link to={backLinkHref}>Go back</Link>
+            <Link to={backLinkHref.current}>Go back</Link>
             <div className={css.imgContainer}><img src={url} alt="poster" /></div>
             <div className={css.sideContainer}>
                 <h1 className={css.title}>{movieDetails.title}</h1>

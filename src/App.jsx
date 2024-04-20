@@ -1,10 +1,8 @@
 import { Suspense, lazy } from "react";
-
-import HomePage from "./pages/HomePage";
 import { Route, Routes} from "react-router-dom";
 import  { Toaster } from 'react-hot-toast';
 import Navigation from "./components/Navigation/Navigation";
-
+const HomePage = lazy(()=> import( "./pages/HomePage"))
 const MoviesPage = lazy(() => import("./pages/MoviesPage"));
 const MovieDetailsPage = lazy(() => import("./pages/MovieDetailsPage"));
 const MovieCast = lazy(() => import("./components/MovieCast/MovieCast"));

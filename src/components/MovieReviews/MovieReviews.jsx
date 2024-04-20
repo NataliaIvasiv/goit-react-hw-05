@@ -5,8 +5,9 @@ import MovieReviewsItem from "../MovieReviewsItem/MovieReviewsItem";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import Loader from "../Loader/Loader";
 
+
 const MovieReviews = () => {
-    const [movieReviews, setMovieReviews] = useState([]);
+    const [movieReviews, setMovieReviews] = useState(null);
     const [loading, setLoading] = useState(false);
     const [isError, setIsError] = useState(false);
     const { movieId } = useParams();  
@@ -30,9 +31,14 @@ loadMovieById()
    
     return (
         <>
-             <MovieReviewsItem review={movieReviews} />
-         {loading && <Loader />}
-            {isError && <ErrorMessage/>}
+            {loading && <Loader />}
+            {isError && <ErrorMessage />}
+            
+            {!loading && movieReviews !== null && movieReviews.length === 0 && (
+            <p>Sorry, there is no reviews for this movie</p>
+            )}
+            {movieReviews && <MovieReviewsItem review={movieReviews} /> }
+            
         </>
     )
 }
