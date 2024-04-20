@@ -8,7 +8,7 @@ import ErrorMessage from "../components/ErrorMessage/ErrorMessage";
 import Loader from "../components/Loader/Loader";
 
 const MoviesPage = () => {
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams('');
     const [listSearchMovies, setListSearchMovies] = useState([]);
     const [loading, setLoading] = useState(false);
     const [isError, setIsError] = useState(false);
@@ -50,11 +50,6 @@ const MoviesPage = () => {
         const form = e.target;
         const typingValue = form.elements.name.value.trim();
         setSearchParams({value: typingValue});
-        if (!searchValue) {
-            toast.error('You should add your query. What movie would you like to see? ');
-            form.reset();
-            return
-        }
             form.reset();
         }
     
